@@ -1,15 +1,23 @@
 '''import module from flask
 '''
-from flask import Flask
+from flask import Flask,render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
 app = Flask('emotion detector app')
 
+
 @app.route("/")
+def render_index_page():
+    '''render the index page
+    '''
+    return render_template('index.html')
+
+@app.route("/emotionDetector")
 def emot_detector():
     '''get the json formatted result, exclude 'dominant' and show seperately 
     '''
-    result_1 = emotion_detector('')   # I think I am having fun
+    text_to_analyze = request.args.get('textToAnalyze')
+    result_1 = emotion_detector(text_to_analyze)   # I think I am having fun
     emotion_values_str = ", ".join(f"'{emotion}': {value}"
                                    for emotion, value in result_1.items()
                                    if emotion != "dominant_emotion"

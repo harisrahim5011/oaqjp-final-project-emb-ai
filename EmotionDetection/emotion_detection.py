@@ -16,7 +16,7 @@ def emotion_detector(text_to_analyse):
                     "sadness": None, 
                     "dominant_emotion":None
                 }
-    
+       
     emotion = format_res['emotionPredictions'][0]['emotion']
     emotion |= {'dominant_emotion': max(emotion, key=emotion.get)}
     return emotion
